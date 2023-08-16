@@ -1,19 +1,15 @@
 VERSION 0.7
 ARG --global NODE_ALPINE_IMAGE=node:20-alpine
 
-# Generic node alpine server
+# Generic node alpine server. Just COPY your files and put your entrypoint in CMD
 generic-node-alpine-server:
     # Port where your app will be running. This is required
     ARG --required APP_PORT
-    # Bundle dist. Can be file or directory. You control the entrypoint script with CMD in your Dockerfile.
-    ARG --required BUNDLE
 
     FROM $NODE_ALPINE_IMAGE
     # Set the environment to production
     ENV NODE_ENV=production
     WORKDIR /app
-    #Generic bundle runnner
-    COPY $BUNDLE .
     USER nobody
     ENTRYPOINT ["node"]
     EXPOSE $APP_PORT
